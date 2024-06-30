@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"fr.iutvalence.info.but.s2_01.dicegame.main"},{"l":"fr.iutvalence.info.but.s2_01.dicegame.mmi"},{"l":"fr.iutvalence.info.but.s2_01.dicegame.model"},{"l":"fr.iutvalence.info.but.s2_01.dicegame.persistency"}];updateSearchResults();

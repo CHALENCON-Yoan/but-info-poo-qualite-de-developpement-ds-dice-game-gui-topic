@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>implementation-guidelines</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+<style type="text/css">
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+.token.function {
+	color: #DD4A68;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Dice Game - GUI</h1>
+
+<p>Dice Game Java application with GUI, GUI part.</p>
+
+<h2 id="toc_1">Table of contents</h2>
+<ul>
+  <li><a href="#preamble">Preamble</a></li>
+  <li><a href="#overview">GUI overview</a></li>
+  <li><a href="#guidelines">Implementation guidelines</a></li>
+  <ul>
+    <li><a href="#step1">1. First (unrealistic) version of main frame: blank frame</a></li>
+    <li><a href="#step2">2. Second (more realistic) version of main frame: layout</a></li>
+    <li><a href="#step3">3. Third (more realistic) version of main frame: event handling</a></li>
+    <li><a href="#step4">4. Main menu</a></li>
+    <li><a href="#step5">5. Preparing new game: asking for user name</a></li>
+    <li><a href="#step6">6. Play game</a></li>
+    <li><a href="#step6">7. High scores</a></li>
+  </ul>
+</ul>
+<div id="preamble"/>
+<h2 id="toc_1">Preamble</h2>
+
+<p>In this part, the goal is to implement a GUI (<em>Graphical User Interface</em>) from UML class diagram, specifications given as generated <em>Javadoc</em> (<strong>Javadoc comments don&#39;t need to be rewritten</strong>), and following guidelines.</p>
+
+<p>GUI has to be implemented in proper package.</p>
+
+<p align=center><img width="50%" src="./images/SourceTree-GUI.png" alt=""></p>
+
+<div id="overview"/>
+<h2 id="toc_2">GUI overview</h2>
+
+<p>Below is a complete UML class diagram representing <em>Dice Game</em> GUI:</p>
+
+<p><img src="./images/uml/GUI-all.png" alt=""></p>
+
+<p><code>GraphicalMmi</code>, like <code>ConsoleMmi</code> (the text-based Man-Machine interface), is an implementation of <code>Mmi</code> interface, as shown below:</p>
+
+<p><img src="./images/uml/GUI-mmi.png" alt=""></p>
+
+<p><code>GraphicalMmi</code> is in charge of displaying the <strong>main</strong> frame allowing to access to main features (play game, view high scores, exit) through a <strong>menu</strong>.</p>
+
+<p>Each feature is associated to a dedicated frame (further called sub-frame):</p>
+
+<ul>
+<li><code>GraphicalMmiMainFrame</code> is the <strong>main</strong> frame, displaying the <strong>menu</strong>
+<p align="center"><img width="50%" src="./images/screenshots/00-MainFrame.png" alt=""></p></li>
+<li><code>GraphicalMmiHighScoresFrame</code> is the <strong>high scores</strong> frame, allowing to <strong>display high scores</strong>
+<p align="center"><img width="50%" src="./images/screenshots/01-HighScoresFrame.png" alt=""></p></li>
+<li><code>GraphicalMmiGameSetupFrame</code> is the <strong>game setup</strong> frame, allowing to <strong>ask for user name and to start a new game</strong>
+<p align="center"><img width="50%" src="./images/screenshots/02-GameSetupFrame.png" alt=""> </p></li>
+<li><code>GraphicalMmiGameFrame</code> is the <strong>game</strong> frame, allowing to <strong>play dice game</strong>
+<p align="center"><img width="50%" src="./images/screenshots/03-GameFrame.png" alt=""> </p></li>
+</ul>
+
+<p>All these frames, as depicted below, are <code>GraphicalMmiJFrame</code> <strong>subclasses</strong>. <code>GraphicalMmiJFrame</code> is a convenience (<em>abstract</em>) <strong>superclass for all sub-frames</strong>, defining common structure and behaviour.</p>
+
+<div id="guidelines"/>
+<h2 id="toc_3">Implementation guidelines</h2>
+
+<p>Below are given implementation guidelines, <strong>completion order must be respected</strong>.</p>
+
+<div id="step1"/>
+<h3 id="toc_4">1. First (unrealistic) version of main frame: blank frame</h3>
+
+<blockquote>
+<p>The first objective is to be able to display a main frame, not realistic but just to ensure that <code>Mmi</code> and <code>DiceGameManager</code> communicate properly.</p>
+</blockquote>
+
+<h4 id="toc_5">Doing it</h4>
+
+<h5 id="toc_6">GraphicalMmiJFrame</h5>
+
+<p><code>GraphicalMmiJFrame</code> is a convenience (abstract) <strong>superclass for all graphical mmi sub-frames</strong>. Frame is also its own <strong>window listener</strong>, allowing to dispose of frame on closing.</p>
+
+<p align="center"><img width="50%" src="./images/uml/DiceGame-GraphicalMmiJFrame.png" alt=""> </p>
+
+<ul>
+<li><strong>Constructor</strong> links the created instance to <em>graphical mmi</em> instance, and <strong>adds itself as its window listener</strong>.</li>
+<li><code>display</code> method <strong>packs the frame</strong>, <strong>turns it to visible</strong>, and <strong>prevents it from being resized</strong>.</li>
+<li><code>windowClosing</code> method (overridden from <code>WindowListener</code> interface) <strong>disposes of the frame</strong>.</li>
+<li>N.B. <em>all other methods overridden from <code>WindowListener</code> interface have an empty implementation.</em></li>
+</ul>
+
+<h5 id="toc_7">GraphicalMmi</h5>
+
+<p><code>GraphicalMmi</code> is the graphical implementation of <code>Mmi</code> interface.</p>
+
+<p align="center"><img width="50%" src="./images/uml/DiceGame-GraphicalMmi-01.png" alt=""></p>
+
+<p><strong>In this step, only the elements shown inside a yellow border have to be declared / implemented.</strong></p>
+
+<ul>
+<li><strong>Constructor</strong> creates a <code>GraphicalMmiMainFrame</code> instance (without displaying it).</li>
+<li><code>displayMainMenu</code> method launches a <strong>new <em>Swing</em> task</strong> that will further  display main frame</li>
+<li><code>reload</code> method restores main frame (after a sub-frame has been closed). To do so, it <em>packs</em> main frame and turns it to <em>visible</em> again.</li>
+</ul>
+
+<h5 id="toc_8">GraphicalMmiMainFrame (draft version, unrealistic)</h5>
+
+<p><code>GraphicalMmiMainFrame</code> is the <strong>main</strong> frame, displaying a menu to access main features. It is also the <strong><em>Swing</em> task</strong> displaying the frame itself, as well as the <strong>action listener</strong> registered on some of its sub-components (buttons).</p>
+
+<p align="center"><img width="50%" src="./images/uml/DiceGame-GraphicalMmiMainFrame-01.png" alt=""></p>
+
+<p><strong>During this step, only the elements shown inside a yellow border have to be declared / implemented.</strong> For now, this class does not need to implement <code>ActionListener</code> interface, but only <code>Runnable</code>.</p>
+
+<ul>
+<li><code>display</code> method:
+
+<ul>
+<li><strong>sets frame title</strong></li>
+<li><strong>sets frame size</strong> to <code>300x100</code> (<em>temporarily comment <code>pack</code> method call in <code>GraphicalMmiJFrame</code> <code>display</code> method to see frame properly</em>)</li>
+<li><strong>calls <code>display</code> super-implementation</strong> to turn frame visible</li>
+</ul></li>
+<li><code>run</code> method (overridden from <code>Runnable</code> interface) <strong>displays</strong> this frame</li>
+<li><code>windowClosing</code> method (overridden from <code>GraphicalMmiJFrame</code> class) <strong>exits</strong> application</li>
+</ul>
+
+<h4 id="toc_9">Checking it</h4>
+
+<p>Write a <code>GraphicalMmiCollectionScoreHistoryMain</code> application (in same package as <code>ConsoleMmiCollectionScoreHistoryMain</code>) that:</p>
+
+<ul>
+<li>creates a new graphical Mmi instance</li>
+<li>creates a new &quot;collection score history&quot; instance</li>
+<li>creates a new dice game manager instance linked to previous ones</li>
+<li>displays Mmi main menu</li>
+<li>starts dice game manager</li>
+</ul>
+
+<p>Verify that application execution displays main frame and that application terminates when closing frame.</p>
+
+<p align="center"><img width="50%" src="./images/screenshots/00-DummyMainFrame.png" alt=""></p>
+
+<h4 id="toc_10">Committing/Pushing it</h4>
+
+<p>Commit with <code>GUI-MainFrame-Blank</code> as title (and a detailed description if needed), and push.</p>
+
+<div id="step2"/>
+<h3 id="toc_11">2. Second (more realistic) version of main frame: layout</h3>
+
+<blockquote>
+<p>The next objective is to be able to display the main frame as expected, but without event handling.</p>
+</blockquote>
+
+<h4 id="toc_12">Doing it</h4>
+
+<h5 id="toc_13">GraphicalMmiJFrame</h5>
+
+<ul>
+<li>uncomment <code>pack</code> method call in <code>display</code> method</li>
+</ul>
+
+<h5 id="toc_14">GraphicalMmiMainFrame</h5>
+
+<p><strong>All elements of UML class diagram are declared / implemented except <code>actionPerformed</code> method (<code>ActionListener</code> is not implemented yet)</strong></p>
+
+<ul>
+<li><p><code>createButtonsPanel</code> method initializes <code>buttonsPanel</code>with a new <code>JPanel</code> instance and adds sub-components to it using a 2-row by 3-column grid layout</p>
+
+<ul>
+<li>blank spaces are made of <code>JLabel</code> instances with blank text (to be invisible)</li>
+</ul></li>
+<li><p><code>display</code> method:</p>
+
+<ul>
+<li><strong>sets frame title</strong>, but <strong>no longer sets frame size</strong> </li>
+<li>creates buttons panel and adds it to frame <em>content pane</em> (using a 1 row by 1 column grid layout)</li>
+<li><strong>calls <code>display</code> super-implementation</strong> to turn frame to visible</li>
+</ul></li>
+</ul>
+
+<h4 id="toc_15">Checking it</h4>
+
+<p>Verify that <code>GraphicalMmiCollectionScoreHistoryMain</code> application execution displays main frame as expected.</p>
+
+<p align="center"><img width="50%" src="./images/screenshots/00-MainFrame.png" alt=""></p>
+
+<h4 id="toc_16">Committing/Pushing it</h4>
+
+<p>Commit with <code>GUI-MainFrame-Layout</code> as title (and a detailed description if needed), and push.</p>
+
+<div id="step3"/>
+<h3 id="toc_17">3. Third (more realistic) version of main frame: event handling</h3>
+
+<blockquote>
+<p>The next objective is to be able to display the main frame as expected, with event handling.</p>
+</blockquote>
+
+<h4 id="toc_18">Doing it</h4>
+
+<h5 id="toc_19">GraphicalMmiMainFrame</h5>
+
+<p><strong><code>GraphicalMmiMainFrame</code> now implements <code>ActionListener</code>, frame is its own listener for event occuring on buttons.</strong></p>
+
+<ul>
+<li>  Button event handling has to be implemented so that:
+
+<ul>
+<li>it turns frame to invisible<br></li>
+<li>it calls <code>updateChoice</code> on Mmi instance with appropriate value (with regards to button)
+
+<ul>
+<li>in case of <code>Exit</code> button, it also disposes of the frame</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h5 id="toc_20">GraphicalMmi</h5>
+
+<ul>
+<li><code>updateChoice</code> method for now just has to print choice on standard output (for testing purpose).</li>
+</ul>
+
+<h4 id="toc_21">Checking it</h4>
+
+<p>Verify that <code>GraphicalMmiCollectionScoreHistoryMain</code> application execution shows expected behaviour with regard to event handling.</p>
+
+<h4 id="toc_22">Committing/Pushing it</h4>
+
+<p>Commit with <code>GUI-MainFrame-Event</code> as title (and a detailed description if needed), and push.</p>
+
+<div id="step4"/>
+<h3 id="toc_23">4. Main menu</h3>
+
+<blockquote>
+<p>The next objective is to synchronize <code>DiceGameManager</code> and <code>GraphicalMmi</code> (and mainly <em>main</em> and <em>Swing</em> threads) to wait for /notify user choice.</p>
+
+<p>To do so, <code>choice</code> field is used as a mailbox by <em>main</em> and <em>Swing</em> threads. The former waits for <code>choice</code> to have a value (<code>askForChoice</code>), the latter updates its value (<code>updateChoice</code>).</p>
+</blockquote>
+
+<h4 id="toc_24">Doing it</h4>
+
+<h5 id="toc_25">GraphicalMmi</h5>
+
+<ul>
+<li><p><code>choice</code> field</p>
+
+<ul>
+<li>must be declared with the <strong>special keyword</strong> <code>volatile</code> (so that threads read/write it properly on their own side)</li>
+<li>must be initialized in the constructor with a <code>null</code> value (meaning that it has no value from menu point of view)</li>
+</ul></li>
+<li><p><code>waitForChoice</code> method waits until <code>choice</code> value becomes not <code>null</code></p></li>
+<li><p><code>askForChoice</code> method (called from <code>DiceGameManager</code> by <em>main</em> thread):</p>
+
+<ul>
+<li>calls <code>waitForChoice</code> </li>
+<li>returns <code>choice</code> value, but also resets it to <code>null</code> for the next time<br></li>
+</ul></li>
+<li><p><code>updateChoice</code> method (called from <code>GraphicalMmiMainFrame</code> by <em>Swing</em> thread) updates <code>choice</code> value</p></li>
+<li><p><code>displayHighScores</code> and <code>askForUserName</code> methods just have for now to print their name on standard output (for testing purpose)</p></li>
+</ul>
+
+<h4 id="toc_26">Checking it</h4>
+
+<p>Verify that <code>GraphicalMmiCollectionScoreHistoryMain</code> application execution shows expected behaviour.</p>
+
+<h4 id="toc_27">Committing/Pushing it</h4>
+
+<p>Commit with <code>GUI-MainFrame-Choice</code> as title (and a detailed description if needed), and push.</p>
+
+<div id="step5"/>
+<h3 id="toc_28">5. Preparing new game: asking for user name</h3>
+
+<blockquote>
+<p>The next objective is to implement <code>GraphicalMmiGameSetupFrame</code>.</p>
+</blockquote>
+
+<h4 id="toc_29">Doing it</h4>
+
+<h5 id="toc_30">GraphicalMmiGameSetupFrame</h5>
+
+<p align="center"><img width="50%" src="./images/screenshots/02-GameSetupFrame.png" alt=""></p>
+
+<p><code>GraphicalMmiGameSetupFrame</code> is made of 2 panels, vertically stacked:</p>
+
+<ul>
+<li><code>usernamePanel</code> containing a label and a textfield</li>
+<li><code>gameStartPanel</code> containing <code>Start Game</code> button</li>
+</ul>
+
+<p>These panels are created (by calling ad&#39;hoc methods) and added to frame <em>content pane</em> in <code>display</code> method (using a simple grid layout).</p>
+
+<ul>
+<li><strong>Constructor</strong> also sets default close operation to <em>Do nothing</em></li>
+<li><code>windowClosing</code> method:
+
+<ul>
+<li>turns the frame to invisible</li>
+<li>shows a popup (see below)</li>
+<li>turns the frame to visible again</li>
+</ul></li>
+</ul>
+
+<p align="center"><img width="50%" src="./images/screenshots/02-GameCannotBeStopped.png" alt=""></p>
+
+<ul>
+<li><code>actionPerformed</code> method:
+
+<ul>
+<li>checks if username is valid (not empty and containing no space character)</li>
+<li>if invalid, displays a popup (see below)</li>
+<li>if valid, disposes of the frame and calls <code>updateUserName</code> method on Mmi instance</li>
+</ul></li>
+</ul>
+
+<p align="center"><img width="50%" src="./images/screenshots/02-NameIsInvalidPopup.png" alt=""></p>
+
+<h5 id="toc_31">GraphicalMmi</h5>
+
+<ul>
+<li><p><code>username</code> field must be declared with the <strong>special keyword</strong> <code>volatile</code> (so that threads read/write it properly on their own side)</p></li>
+<li><p><code>askForUserName</code> method (called from <code>DiceGameManager</code> by <code>main</code> thread):</p>
+
+<ul>
+<li>creates a new <code>GraphicalMmiGameSetupFrame</code> instance and displays it </li>
+<li>sets <code>userName</code> to <code>null</code></li>
+<li>waits until <code>userName</code> becomes not <code>null</code> and returns its value</li>
+</ul></li>
+<li><p><code>updateUserName</code> method (called from <code>GraphicalMmiGameSetupFrame</code> by <em>Swing</em> thread) updates <code>choice</code> value</p></li>
+<li><p><code>notifyGameIsStarted</code> method for now just has to print method name on standard output (for testing purpose)</p></li>
+</ul>
+
+<h4 id="toc_32">Checking it</h4>
+
+<p>Verify that <code>GraphicalMmiCollectionScoreHistoryMain</code> application execution shows expected behaviour.</p>
+
+<h4 id="toc_33">Committing/Pushing it</h4>
+
+<p>Commit with <code>GUI-MainFrame-GameSetup</code> as title (and a detailed description if needed), and push.</p>
+
+<div id="step6"/>
+<h3 id="toc_34">6. Play game</h3>
+
+<blockquote>
+<p>The next objective is to implement <code>GraphicalMmiGameFrame</code>.</p>
+</blockquote>
+
+<h4 id="toc_35">Doing it</h4>
+
+<h5 id="toc_36">GraphicalMmiGameFrame</h5>
+
+<p><code>GraphicalMmiGameFrame</code> is made of 3 panels, vertically stacked:</p>
+
+<ul>
+<li><code>infoPanel</code> containing 2 labels (<code>remainingTurnsLabel</code> and <code>scoreLabel</code>)</li>
+<li><code>diceRollPanel</code> containing 3 labels (one for each dice roll value, one blank used for spacing) and a <code>Roll</code> button</li>
+<li><code>exitPanel</code> containing 2 blank labels (used for spacing) and an <code>Exit button</code></li>
+</ul>
+
+<p>These panels are created (by calling ad&#39;hoc methods) and added to frame <em>content pane</em> in <code>display</code> method (using a grid bag layout whose constraints are defined as <code>{fill: BOTH, gridx: 0}</code>).</p>
+
+<ul>
+<li>When game starts (see screenshot below):
+
+<ul>
+<li>dice have not been rolled yet, so their values are undefined</li>
+<li><code>Exit</code> button is <em>disabled</em> so that it cannot be clicked</li>
+</ul></li>
+</ul>
+
+<p align="center"><img width="50%" src="./images/screenshots/03-GameFrame-Start.png" alt=""></p>
+
+<ul>
+<li>During game (see screenshot below):
+
+<ul>
+<li>dice values, remaining turns and current score are refreshed each time dices are rolled</li>
+<li><code>Exit</code> button is <em>disabled</em> so that it can not be clicked</li>
+</ul></li>
+</ul>
+
+<p align="center"><img width="50%" src="./images/screenshots/03-GameFrame-InGame.png" alt=""></p>
+
+<ul>
+<li>When game ends (see screenshot below):
+
+<ul>
+<li>Game end information replaces in-game information</li>
+<li><code>Roll</code> button is <em>disabled</em> so that it can not be clicked</li>
+<li><code>Exit</code> button is <em>enabled</em> so that it can be clicked to exit</li>
+</ul></li>
+</ul>
+
+<p align="center"><img width="50%" src="./images/screenshots/03-GameFrame-End.png" alt=""></p>
+
+<ul>
+<li><p><strong>Constructor</strong> also sets default close operation to <em>Do nothing</em></p></li>
+<li><p><code>rollButtonClicked</code> field is used to synchronize <code>GraphicalMmi</code> and <code>GraphicalMmiGameFrame</code> for dice rolls and game exit, so it must be declared with the <strong>special keyword</strong> <code>volatile</code> (so that threads read/write it properly on their own side)</p></li>
+<li><p><code>waitForRoll</code> method sets <code>rollButtonClicked</code> to <code>false</code>, waits until it becomes <code>true</code> and resets it to <code>false</code> again</p></li>
+<li><p><code>endGame</code> method:</p>
+
+<ul>
+<li>replaces in-game information by game end information</li>
+<li>disables <code>Roll</code> button</li>
+<li>enables <code>Exit</code> button</li>
+<li>sets <code>exitButtonClicked</code> to <code>false</code>, waits until it becomes <code>true</code> and resets it to <code>false</code> again</li>
+<li>disposes of the frame</li>
+<li>reloads Mmi</li>
+</ul></li>
+<li><p><code>windowClosing</code> method:</p>
+
+<ul>
+<li>turns the frame to invisible</li>
+<li>shows a popup (see below)</li>
+<li>turns the frame to visible again</li>
+</ul></li>
+</ul>
+
+<p align="center"><img width="50%" src="./images/screenshots/02-GameCannotBeStopped.png" alt=""></p>
+
+<ul>
+<li><p><code>updatedDiceFaceValues</code> method refreshes dice roll value labels </p></li>
+<li><p><code>actionPerformed</code> method turns either <code>rollButtonClicked</code> or <code>exitButtonClicked</code> to <code>true</code> </p></li>
+</ul>
+
+<h5 id="toc_37">GraphicalMmi</h5>
+
+<p>To be able to play game, some methods have to be implemented / updated:</p>
+
+<ul>
+<li><code>notifyGameIsStarted</code> method turns <em>main frame</em> to invisible, creates a new <code>GraphicalMmiGameFrame</code> instance and displays it</li>
+<li><code>notifyNewTurn</code> method refreshes <em>game frame</em> information panel </li>
+<li><code>notifyWaitForRoll</code> method calls <code>waitForRoll</code> on <code>GraphicalMmiGameFrame</code> instance</li>
+<li><code>notifyRollResult</code> updates <em>game frame</em> dice roll panel with roll results</li>
+<li><code>notifyGameHasEnded</code> method calls <code>endGame</code> on <code>GraphicalMmiGameFrame</code> instance</li>
+</ul>
+
+<h4 id="toc_38">Checking it</h4>
+
+<p>Verify that <code>GraphicalMmiCollectionScoreHistoryMain</code> application execution shows expected behaviour.</p>
+
+<h4 id="toc_39">Committing/Pushing it</h4>
+
+<p>Commit with <code>GUI-MainFrame-Game</code> as title (and a detailed description if needed), and push.</p>
+
+<div id="step7"/>
+<h3 id="toc_40">7. High scores</h3>
+
+<blockquote>
+<p>The last objective is to implement <code>GraphicalMmiHighScoresFrame</code>.</p>
+</blockquote>
+
+<h4 id="toc_41">Doing it</h4>
+
+<h5 id="toc_42">GraphicalMmiHighScoreFrame</h5>
+
+<p align="center"><img width="50%" src="./images/screenshots/01-HighScoresFrame.png" alt=""></p>
+
+<p><code>GraphicalMmiHighScoresFrame</code> is made of a single panel (<code>highScoresTablePanel</code>), displaying high score like a table (legend row, data rows). </p>
+
+<p><code>highScoresTablePanel</code> is created (by calling ad&#39;hoc method) and added to frame <em>content pane</em> in <code>display</code> method (using a simple grid layout). It contains two sub-panels (<code>highScoresLegendPanel</code> and <code>highScoresPanel</code>), vertically stacked using a grid bag layout whose constraints are defined as <code>{fill: BOTH, gridx: 0}</code>:</p>
+
+<ul>
+<li><code>highScoresLegendPanel</code> contains 2 labels whose background color is set to <code>LEGEND_BACKGROUND_COLOR</code> (RGB values are <code>[200, 200, 250]</code>)</li>
+<li><code>highScoresPanel</code> contains up to 10 sub-panels (depending on score list, which is by the way already sorted) made of 2 labels</li>
+</ul>
+
+<p>When no score has been added yet, high score table looks like below:</p>
+
+<p align="center"><img width="50%" src="./images/screenshots/01-HighScoresFrame-NoScore.png" alt=""></p>
+
+<ul>
+<li><code>windowClosing</code> method disposes of the frame (by calling super-implementation)   and reloads Mmi</li>
+</ul>
+
+<h5 id="toc_43">GraphicalMmi</h5>
+
+<p>To be able to display high scores, a last method has to be implemented:</p>
+
+<ul>
+<li><code>displayHighScores</code> method turns <em>main frame</em> to invisible, creates a new <code>GraphicalMmiHighScoresFrame</code> instance and displays it</li>
+</ul>
+
+<h4 id="toc_44">Checking it</h4>
+
+<p>Verify that <code>GraphicalMmiCollectionScoreHistoryMain</code> application execution shows expected behaviour.</p>
+
+<h4 id="toc_45">Committing/Pushing it</h4>
+
+<p>Commit with <code>GUI-MainFrame-HighScores</code> as title (and a detailed description if needed), and push.</p>
+
+
+
+<script type="text/javascript">
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var l=r[e];if(2==arguments.length){a=arguments[1];for(var i in a)a.hasOwnProperty(i)&&(l[i]=a[i]);return l}var o={};for(var s in l)if(l.hasOwnProperty(s)){if(s==t)for(var i in a)a.hasOwnProperty(i)&&(o[i]=a[i]);o[s]=l[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var l in e)e.hasOwnProperty(l)&&(t.call(e,l,e[l],a||l),"Object"!==n.util.type(e[l])||r[n.util.objId(e[l])]?"Array"!==n.util.type(e[l])||r[n.util.objId(e[l])]||(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,l,r)):(r[n.util.objId(e[l])]=!0,n.languages.DFS(e[l],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,l=a.elements||document.querySelectorAll(a.selector),i=0;r=l[i++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var l,i,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(l=(o.className.match(e)||[,""])[1],i=n.languages[l]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var s=t.textContent,u={element:t,language:l,grammar:i,code:s};if(!s||!i)return n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var c=new Worker(n.filename);c.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var l=n.tokenize(e,t);return a.stringify(n.util.encode(l),r)},tokenize:function(e,t){var a=n.Token,r=[e],l=t.rest;if(l){for(var i in l)t[i]=l[i];delete t.rest}e:for(var i in t)if(t.hasOwnProperty(i)&&t[i]){var o=t[i];o="Array"===n.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var u=o[s],c=u.inside,g=!!u.lookbehind,h=!!u.greedy,f=0,d=u.alias;u=u.pattern||u;for(var p=0;p<r.length;p++){var m=r[p];if(r.length>e.length)break e;if(!(m instanceof a)){u.lastIndex=0;var y=u.exec(m),v=1;if(!y&&h&&p!=r.length-1){var b=r[p+1].matchedStr||r[p+1],k=m+b;if(p<r.length-2&&(k+=r[p+2].matchedStr||r[p+2]),u.lastIndex=0,y=u.exec(k),!y)continue;var w=y.index+(g?y[1].length:0);if(w>=m.length)continue;var _=y.index+y[0].length,P=m.length+b.length;if(v=3,P>=_){if(r[p+1].greedy)continue;v=2,k=k.slice(0,P)}m=k}if(y){g&&(f=y[1].length);var w=y.index+f,y=y[0].slice(f),_=w+y.length,S=m.slice(0,w),O=m.slice(_),j=[p,v];S&&j.push(S);var A=new a(i,c?n.tokenize(y,c):y,d,y,h);j.push(A),O&&j.push(O),Array.prototype.splice.apply(r,j)}}}}}return r},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,l=0;r=a[l++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.matchedStr=a||null,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var l={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==l.type&&(l.attributes.spellcheck="true"),e.alias){var i="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(l.classes,i)}n.hooks.run("wrap",l);var o="";for(var s in l.attributes)o+=(o?" ":"")+s+'="'+(l.attributes[s]||"")+'"';return"<"+l.tag+' class="'+l.classes.join(" ")+'" '+o+">"+l.content+"</"+l.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,l=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),l&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",n.highlightAll)),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+
+
+</body>
+
+</html>
